@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="张梦肖 Sia 双语制片作品集" />
+  <title>张梦肖 Sia｜双语制片</title>
+  <style>
+    :root {
+      --ink: #11110f;
+      --paper: #f2f0ea;
+      --line: rgba(17, 17, 15, .16);
+      --muted: #6f6e68;
+      --accent: #e4492e;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-content: space-between;
+      overflow: hidden;
+      padding: 28px clamp(22px, 4vw, 64px) 38px;
+      color: #241d19;
+      background: #ddd8cf;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 50% 0 0;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255,255,255,.48), transparent 34%),
+        repeating-linear-gradient(135deg, rgba(36,29,25,.026) 0 1px, transparent 1px 8px),
+        #ddd8cf;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 0 auto 0 50%;
+      width: 1px;
+      background: rgba(36,29,25,.18);
+    }
+    .portrait { position: absolute; z-index: 0; inset: 0 0 0 50%; overflow: hidden; background: #d8cec4; }
+    .portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 34%; }
+    .hero-top, .hero-title, .hero-foot { position: relative; z-index: 1; }
+    .hero-top { display: flex; align-items: center; justify-content: flex-end; letter-spacing: .12em; font-size: 12px; }
+    .hero-title { align-self: center; }
+    .hero h1 {
+      margin: 0;
+      max-width: calc(50vw - clamp(44px, 8vw, 120px));
+      font-size: clamp(62px, 8.5vw, 126px);
+      line-height: .86;
+      letter-spacing: -.075em;
+      font-weight: 600;
+    }
+    .hero h1 span { display: block; margin-top: .14em; font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-style: italic; }
+    .hero-subtitle {
+      margin: 24px 0 0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .22em;
+    }
+    .hero-foot { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+    .role { font-size: clamp(20px, 2vw, 31px); letter-spacing: .05em; }
+    .role small { display: block; margin-top: 7px; color: rgba(36,29,25,.58); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; }
+    .scroll { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.82); font-size: 12px; letter-spacing: .12em; }
+    .scroll::before { content: ""; width: 40px; height: 1px; background: currentColor; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      overflow-x: auto;
+      padding: 16px clamp(22px, 4vw, 64px) 20px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,240,234,.92);
+      backdrop-filter: blur(14px);
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 54px;
+      padding: 12px 14px 12px 16px;
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      color: var(--ink);
+      background: #faf8f2;
+      box-shadow: 4px 4px 0 var(--ink);
+      font-size: clamp(14px, 1.35vw, 18px);
+      font-weight: 650;
+      letter-spacing: -.01em;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .nav a::after {
+      content: "↘";
+      display: grid;
+      place-items: center;
+      flex: 0 0 26px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--ink);
+      font-size: 14px;
+      line-height: 1;
+    }
+    .nav a:hover { color: var(--ink); background: #fff; transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
+    .nav a:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+    .nav a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    main { padding: 0 clamp(22px, 4vw, 64px) 90px; }
+    .section { padding-top: 96px; scroll-margin-top: 52px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .section-head h2 { margin: 0; font-size: clamp(34px, 5vw, 72px); line-height: 1; letter-spacing: -.055em; font-weight: 550; }
+    .section-head span { color: var(--muted); font-size: 12px; letter-spacing: .14em; }
+    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 36px 18px; padding-top: 24px; }
+    .card { grid-column: span 6; min-width: 0; cursor: pointer; }
+    .card:nth-child(3n+1) { grid-column: span 7; }
+    .card:nth-child(3n+2) { grid-column: span 5; }
+    .media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #dedbd3;
+    }
+    .media img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+    .card:hover .media img { transform: scale(1.025); }
+    .media::after {
+      content: attr(data-kind);
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      padding: 7px 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(8px);
+      font-size: 10px;
+      letter-spacing: .1em;
+    }
+    .pdf-card .media::after { content: "PDF · 点击打开 →"; }
+    .card-info { display: grid; grid-template-columns: max-content minmax(0, 1fr) auto; gap: 14px; align-items: start; padding-top: 13px; }
+    .year { white-space: nowrap; font: italic 16px/1.25 Georgia, "Times New Roman", serif; }
+    .title { margin: 0; font-size: clamp(16px, 1.6vw, 22px); line-height: 1.25; letter-spacing: -.025em; font-weight: 540; }
+    .tag { max-width: 230px; color: var(--muted); font-size: 11px; line-height: 1.45; text-align: right; }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 110px;
+      padding-top: 20px;
+      border-top: 1px solid var(--ink);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    dialog {
+      width: min(1100px, calc(100vw - 28px));
+      padding: 0;
+      border: 0;
+      border-radius: 2px;
+      background: #050505;
+      box-shadow: 0 30px 100px rgba(0,0,0,.45);
+    }
+    dialog::backdrop { background: rgba(0,0,0,.8); backdrop-filter: blur(4px); }
+    dialog video { width: 100%; max-height: 82svh; display: block; background: #000; }
+    .pdf-dialog {
+      width: min(1200px, calc(100vw - 28px));
+      height: min(92svh, 900px);
+      overflow: hidden;
+      background: #050505;
+    }
+    .pdf-toolbar {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 68px 0 20px;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+    }
+    .pdf-toolbar strong { overflow: hidden; font-size: 14px; font-weight: 550; text-overflow: ellipsis; white-space: nowrap; }
+    .pdf-download { flex: 0 0 auto; color: rgba(255,255,255,.68); font-size: 11px; letter-spacing: .08em; }
+    .pdf-download:hover { color: #fff; }
+    .pdf-dialog iframe { width: 100%; height: calc(100% - 58px); display: block; border: 0; background: #171717; }
+    .pdf-dialog .close { position: absolute; top: 8px; right: 12px; }
+    .close {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(0,0,0,.5);
+      cursor: pointer;
+    }
+    @media (max-width: 760px) {
+      .hero { padding-bottom: 24px; }
+      .hero h1 { max-width: 42vw; font-size: clamp(48px, 15vw, 112px); }
+      .hero-subtitle { margin-top: 18px; font-size: 11px; letter-spacing: .14em; }
+      .hero-top > span:last-child { color: #fff; font-size: 9px; }
+      .hero-foot { align-items: start; flex-direction: column; }
+      .scroll { display: none; }
+      .section { padding-top: 66px; }
+      .grid { gap: 34px; }
+      .card, .card:nth-child(3n+1), .card:nth-child(3n+2) { grid-column: 1 / -1; }
+      .card-info { grid-template-columns: max-content minmax(0, 1fr); }
+      .tag { grid-column: 2; text-align: left; }
+      footer { margin-top: 70px; flex-direction: column; }
+      .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav a { min-height: 48px; font-size: 14px; }
+      .pdf-dialog { width: 100vw; height: 100svh; max-width: none; max-height: none; border-radius: 0; }
+      .pdf-toolbar { padding-left: 14px; }
+      .pdf-download { font-size: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .media img { transition: none; }
+    }
+    @media (max-width: 980px) {
+      .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="portrait"><img src="portfolio-assets/sia-portrait.jpg" alt="张梦肖 Sia 肖像" /></div>
+    <div class="hero-top"><span>PORTFOLIO · 2019—2026</span></div>
+    <div class="hero-title"><h1>张梦肖<span>Sia</span></h1><p class="hero-subtitle">部分作品集展示</p></div>
+    <div class="hero-foot">
+      <div class="role">双语制片<small>Bilingual Producer</small></div>
+      <a class="scroll" href="#aigc">浏览作品</a>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="作品分类">
+    <a href="#aigc">AIGC</a>
+    <a href="#shooting">拍摄类广告</a>
+    <a href="#planning">策划案</a>
+    <a href="#campaign">展会物料、全案</a>
+  </nav>
+
+  <main>
+    <section class="section" id="aigc">
+      <div class="section-head"><h2>AIGC</h2><span>04 PROJECTS</span></div>
+      <div class="grid">
+        <a class="card video-card" href="web-media/videos/insta360-drone.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-8.jpg" alt="Insta360 无人机项目画面" /></div>
+          <div class="card-info"><span class="year">2026</span><h3 class="title">Insta360 无人机</h3><span class="tag">个人创作</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/tencent-liaozhai-aigc.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-7.jpg" alt="腾讯聊斋 AIGC 电影 Demo 画面" /></div>
+          <div class="card-info"><span class="year">2026</span><h3 class="title">腾讯聊斋 AIGC 电影 Demo</h3><span class="tag">外联制片</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/unicom-ai-platform.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-9.jpg" alt="中国联通 AI 服务平台项目画面" /></div>
+          <div class="card-info"><span class="year">2026</span><h3 class="title">中国联通 AI 服务平台</h3><span class="tag">制片</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/smartwatch.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-10.jpg" alt="智能手表项目画面" /></div>
+          <div class="card-info"><span class="year">2025</span><h3 class="title">智能手表</h3><span class="tag">制片</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="shooting">
+      <div class="section-head"><h2>拍摄类广告</h2><span>06 PROJECTS</span></div>
+      <div class="grid">
+        <a class="card video-card" href="web-media/videos/jd-cny-2024.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-4.jpg" alt="京东超市 2024 年货节病毒篇画面" /></div>
+          <div class="card-info"><span class="year">2024</span><h3 class="title">京东超市年货节病毒篇</h3><span class="tag">执行制片</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/jd-food-2023.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-5.jpg" alt="京东超市奇食妙想记画面" /></div>
+          <div class="card-info"><span class="year">2023</span><h3 class="title">京东超市 · 奇食妙想记</h3><span class="tag">执行制片</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/vivo-2020.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-3.jpg" alt="Vivo 项目画面" /></div>
+          <div class="card-info"><span class="year">2020</span><h3 class="title">Vivo</h3><span class="tag">全案</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/sunflower-demo.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-6.jpg" alt="葵花药业病毒视频项目画面" /></div>
+          <div class="card-info"><span class="year">2020</span><h3 class="title">葵花药业病毒视频 Demo（100集）</h3><span class="tag">全案</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/jzb-brand-film.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-1.jpg" alt="家长帮项目画面" /></div>
+          <div class="card-info"><span class="year">2019</span><h3 class="title">家长帮</h3><span class="tag">全案</span></div>
+        </a>
+        <a class="card video-card" href="web-media/videos/hipp-farm.mp4">
+          <div class="media" data-kind="VIDEO"><img src="portfolio-assets/thumbnails/video-2.jpg" alt="喜宝农场品宣画面" /></div>
+          <div class="card-info"><span class="year">2019</span><h3 class="title">喜宝农场品宣</h3><span class="tag">全案</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="planning">
+      <div class="section-head"><h2>策划案</h2><span>04 PROJECTS</span></div>
+      <div class="grid">
+        <a class="card pdf-card" href="web-media/pdfs/maixiaomi-ip-2020-2023.pdf" title="在当前页面打开 PDF">
+          <div class="media" data-kind="PDF"><img src="portfolio-assets/thumbnails/pdf-6.jpg" alt="麦小米内容简介及规划封面" /></div>
+          <div class="card-info"><span class="year">2020～2023</span><h3 class="title">IP品牌内容制片</h3><span class="tag">IP策划与多媒体拓展、内容制作PM、品牌合作与供应商对接</span></div>
+        </a>
+        <a class="card pdf-card" href="web-media/pdfs/onion-news-2020.pdf" title="在当前页面打开 PDF">
+          <div class="media" data-kind="PDF"><img src="portfolio-assets/thumbnails/pdf-3.jpg" alt="洋葱新闻电视台方案封面" /></div>
+          <div class="card-info"><span class="year">2020</span><h3 class="title">洋葱新闻电视台</h3><span class="tag">全案策划</span></div>
+        </a>
+        <a class="card pdf-card" href="web-media/pdfs/jzb-plan-2019.pdf" title="在当前页面打开 PDF">
+          <div class="media" data-kind="PDF"><img src="portfolio-assets/thumbnails/pdf-4.jpg" alt="家长帮品牌广告方案封面" /></div>
+          <div class="card-info"><span class="year">2019</span><h3 class="title">家长帮品牌广告方案</h3><span class="tag">全案</span></div>
+        </a>
+        <a class="card pdf-card" href="web-media/pdfs/sunflower-ip.pdf" title="在当前页面打开 PDF">
+          <div class="media" data-kind="PDF"><img src="portfolio-assets/thumbnails/pdf-5.jpg" alt="小葵花妈妈课堂 IP 打造方案封面" /></div>
+          <div class="card-info"><span class="year">—</span><h3 class="title">小葵花妈妈课堂 IP 打造方案</h3><span class="tag">视频部分方案制作</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="campaign">
+      <div class="section-head"><h2>展会物料、全案</h2><span>02 PROJECTS</span></div>
+      <div class="grid">
+        <a class="card pdf-card" href="web-media/pdfs/weibo-520-2020.pdf" title="在当前页面打开 PDF">
+          <div class="media" data-kind="PDF"><img src="portfolio-assets/thumbnails/pdf-2.jpg" alt="微博 520 活动总结封面" /></div>
+          <div class="card-info"><span class="year">2020</span><h3 class="title">微博 520 活动总结</h3><span class="tag">全案</span></div>
+        </a>
+        <a class="card pdf-card" href="web-media/pdfs/lech-project-2019.pdf" title="在当前页面打开 PDF">
+          <div class="media" data-kind="PDF"><img src="portfolio-assets/thumbnails/pdf-1.jpg" alt="露安适项目策划及活动方案封面" /></div>
+          <div class="card-info"><span class="year">2019</span><h3 class="title">露安适项目策划及活动方案</h3><span class="tag">全案</span></div>
+        </a>
+      </div>
+    </section>
+
+    <footer><span>张梦肖 Sia · 双语制片</span><span>© 2019—2026</span></footer>
+  </main>
+
+  <dialog id="player" aria-label="视频播放器">
+    <button class="close" aria-label="关闭视频">×</button>
+    <video controls playsinline></video>
+  </dialog>
+
+  <dialog id="pdf-viewer" class="pdf-dialog" aria-label="PDF 预览">
+    <div class="pdf-toolbar">
+      <strong>PDF 预览</strong>
+      <a class="pdf-download" download>下载 PDF</a>
+    </div>
+    <button class="close" aria-label="关闭 PDF">×</button>
+    <iframe title="PDF 文档预览"></iframe>
+  </dialog>
+
+  <script>
+    const dialog = document.querySelector('#player');
+    const player = dialog.querySelector('video');
+    document.querySelectorAll('.video-card').forEach(card => {
+      card.addEventListener('click', event => {
+        event.preventDefault();
+        player.src = card.getAttribute('href');
+        dialog.showModal();
+      });
+    });
+    function closePlayer() {
+      player.pause();
+      player.removeAttribute('src');
+      player.load();
+      dialog.close();
+    }
+    dialog.querySelector('.close').addEventListener('click', closePlayer);
+    dialog.addEventListener('click', event => { if (event.target === dialog) closePlayer(); });
+    dialog.addEventListener('cancel', event => { event.preventDefault(); closePlayer(); });
+
+    const pdfDialog = document.querySelector('#pdf-viewer');
+    const pdfFrame = pdfDialog.querySelector('iframe');
+    const pdfTitle = pdfDialog.querySelector('strong');
+    const pdfDownload = pdfDialog.querySelector('.pdf-download');
+    document.querySelectorAll('.pdf-card').forEach(card => {
+      card.addEventListener('click', event => {
+        event.preventDefault();
+        const source = card.getAttribute('href');
+        pdfFrame.src = source;
+        pdfDownload.href = source;
+        pdfTitle.textContent = card.querySelector('.title').textContent;
+        pdfDialog.showModal();
+      });
+    });
+    function closePdf() {
+      pdfFrame.src = 'about:blank';
+      pdfDialog.close();
+    }
+    pdfDialog.querySelector('.close').addEventListener('click', closePdf);
+    pdfDialog.addEventListener('click', event => { if (event.target === pdfDialog) closePdf(); });
+    pdfDialog.addEventListener('cancel', event => { event.preventDefault(); closePdf(); });
+  </script>
+</body>
+</html>
